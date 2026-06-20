@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product API Frontend</title>
+
+<style>
+body{
+    font-family:Arial,sans-serif;
+    background:linear-gradient(135deg,#667eea,#764ba2);
+    margin:0;
+    padding:20px;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+    background:white;
+    padding:25px;
+    border-radius:15px;
+}
+
+h1{
+    text-align:center;
+    color:#667eea;
+}
+
+button{
+    background:#667eea;
+    color:white;
+    border:none;
+    padding:12px 20px;
+    border-radius:8px;
+    cursor:pointer;
+    margin-bottom:20px;
+}
+
+.product{
+    background:#f4f4f4;
+    padding:15px;
+    margin-top:10px;
+    border-radius:10px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h1>🛒 Product List</h1>
+
+<button onclick="loadProducts()">
+Load Products
+</button>
+
+<div id="products"></div>
+
+</div>
+
+<script>
+async function loadProducts(){
+
+    const response =
+    await fetch("http://localhost:5000/products");
+
+    const products =
+    await response.json();
+
+    let html = "";
+
+    products.forEach(product => {
+
+        html += `
+        <div class="product">
+            <h3>${product.name}</h3>
+            <p>Price: ₹${product.price}</p>
+        </div>
+        `;
+    });
+
+    document.getElementById("products")
+    .innerHTML = html;
+}
+</script>
+
+</body>
+</html>
